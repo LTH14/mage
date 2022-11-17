@@ -80,9 +80,6 @@ class VisionTransformerMage(timm.models.vision_transformer.VisionTransformer):
                                         max_position_embeddings=256 + 1,
                                         dropout=0.1)
 
-        self.fake_class_label = 1100
-        self.mask_token_label = 2024
-
     def forward_features(self, x):
         # tokenization
         with torch.no_grad():
