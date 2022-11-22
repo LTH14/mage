@@ -8,11 +8,11 @@ This is a PyTorch/GPU re-implementation of the paper
 <a href="https://arxiv.org/abs/2211.09117">MAGE: MAsked Generative Encoder to Unify Representation Learning and Image Synthesis</a>:
 
 ```
-@Article{mage2022,
-  author  = {Tianhong Li and Huiwen Chang and Shlok Kumar Mishra and Han Zhang and Dina Katabi and Dilip Krishnan},
-  journal = {arXiv:2211.09117},
-  title   = {MAGE: MAsked Generative Encoder to Unify Representation Learning and Image Synthesis},
-  year    = {2022},
+@article{li2022mage,
+  title={MAGE: MAsked Generative Encoder to Unify Representation Learning and Image Synthesis},
+  author={Li, Tianhong and Chang, Huiwen and Mishra, Shlok Kumar and Zhang, Han and Katabi, Dina and Krishnan, Dilip},
+  journal={arXiv preprint arXiv:2211.09117},
+  year={2022}
 }
 ```
 
@@ -153,6 +153,25 @@ To perform class unconditional generation with pre-trained MAGE model using a si
 python gen_img_uncond.py --temp 6.0 --num_iter 20 \
 --ckpt ${PRETRAIN_CHKPT} --batch_size 32 --num_images 50000 \
 --model mage_vit_base_patch16 --output_dir ${OUTPUT_DIR}
+```
+
+To quantitatively evaluate FID/IS, please first generate 256x256 
+ImageNet validation images using
+
+```
+python prepare_imgnet_val.py --data_path ${IMAGENET_DIR} --output_dir ${OUTPUT_DIR}
+```
+
+Then install the <a href="https://github.com/toshas/torch-fidelity">torch-fidelity</a>
+package by
+```
+pip install torch-fidelity
+```
+
+Then use the above package to evaluate FID/IS of the images generated 
+by our models against 256x256 ImageNet validation images by 
+```
+fidelity --gpu 0 --isc --fid --input1 ${GENERATED_IMAGES_DIR} --input2 ${IMAGENET256X256_DIR}
 ```
 
 Here are some examples of our class-unconditional generation:
