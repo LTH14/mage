@@ -97,8 +97,8 @@ to PT/GPU:
 <td align="center">74.7%</td>
 <td align="center">78.9%</td>
 <tr><td align="left">Fine-tuning Top-1 Accuracy</td>
-<td align="center">82.5%</td>
-<td align="center">83.9%</td>
+<td align="center">82.5% <a href="https://drive.google.com/file/d/1q-q-L9x7w9a5Q4aEfFrdRQUpjM-0kAsS/view?usp=sharing">Checkpoint</a></td>
+<td align="center">83.9% <a href="https://drive.google.com/file/d/13w0LOnJ-MnyI2dBaGEkmdsf5xik2PUS6/view?usp=sharing">Checkpoint</a></td>
 </tr>
 </tbody></table>
 
