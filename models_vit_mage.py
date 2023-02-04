@@ -64,7 +64,6 @@ class VisionTransformerMage(timm.models.vision_transformer.VisionTransformer):
         # VQGAN specifics
         config = OmegaConf.load('config/vqgan.yaml').model
         self.vqgan = VQModel(ddconfig=config.params.ddconfig,
-                             lossconfig=config.params.lossconfig,
                              n_embed=config.params.n_embed,
                              embed_dim=config.params.embed_dim,
                              ckpt_path=vqgan_ckpt_path)

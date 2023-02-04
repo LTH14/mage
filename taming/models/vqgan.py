@@ -1,5 +1,4 @@
 import torch
-import torch.nn.functional as F
 import pytorch_lightning as pl
 
 from taming.modules.diffusionmodules.model import Encoder, Decoder
@@ -9,7 +8,6 @@ from taming.modules.vqvae.quantize import VectorQuantizer2 as VectorQuantizer
 class VQModel(pl.LightningModule):
     def __init__(self,
                  ddconfig,
-                 lossconfig,
                  n_embed,
                  embed_dim,
                  ckpt_path=None,
@@ -67,35 +65,3 @@ class VQModel(pl.LightningModule):
         quant, diff, _ = self.encode(input)
         dec = self.decode(quant)
         return dec, diff
-
-    def get_input(self, batch, k):
-        x = batch[k]
-        if len(x.shape) == 3:
-            x = x[..., None]
-        x = x.permute(0, 3, 1, 2).to(memory_format=torch.contiguous_format)
-        return x.float()
-
-    def get_last_layer(self):
-        return self.decoder.conv_out.weight
-
-    def log_images(self, batch, **kwargs):
-        log = dict()
-        x = self.get_input(batch, self.image_key)
-        x = x.to(self.device)
-        xrec, _ = self(x)
-        if x.shape[1] > 3:
-            # colorize with random projection
-            assert xrec.shape[1] > 3
-            x = self.to_rgb(x)
-            xrec = self.to_rgb(xrec)
-        log["inputs"] = x
-        log["reconstructions"] = xrec
-        return log
-
-    def to_rgb(self, x):
-        assert self.image_key == "segmentation"
-        if not hasattr(self, "colorize"):
-            self.register_buffer("colorize", torch.randn(3, x.shape[1], 1, 1).to(x))
-        x = F.conv2d(x, weight=self.colorize)
-        x = 2.*(x-x.min())/(x.max()-x.min()) - 1.
-        return x
