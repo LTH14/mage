@@ -164,9 +164,9 @@ class MaskedGenerativeEncoderViT(nn.Module):
         for param in self.vqgan.parameters():
             param.requires_grad = False
 
-        codebook_size = config.params.n_embed
-        vocab_size = codebook_size + 1000 + 1  # 1024 codebook size, 1000 classes, 1 for mask token.
-        self.fake_class_label = codebook_size + 1100 - 1024
+        self.codebook_size = config.params.n_embed
+        vocab_size = self.codebook_size + 1000 + 1  # 1024 codebook size, 1000 classes, 1 for mask token.
+        self.fake_class_label = self.codebook_size + 1100 - 1024
         self.mask_token_label = vocab_size - 1
         self.token_emb = BertEmbeddings(vocab_size=vocab_size,
                                         hidden_size=embed_dim,
@@ -347,7 +347,7 @@ class MaskedGenerativeEncoderViT(nn.Module):
     def forward_loss(self, gt_indices, logits, mask):
         bsz, seq_len = gt_indices.size()
         # logits and mask are with seq_len+1 but gt_indices is with seq_len
-        loss = self.criterion(logits[:, 1:].reshape(bsz*seq_len, -1), gt_indices.reshape(bsz*seq_len))
+        loss = self.criterion(logits[:, 1:, :self.codebook_size].reshape(bsz*seq_len, -1), gt_indices.reshape(bsz*seq_len))
         loss = loss.reshape(bsz, seq_len)
         loss = (loss * mask[:, 1:]).sum() / mask[:, 1:].sum()  # mean loss on removed patches
         return loss
