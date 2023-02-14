@@ -179,6 +179,12 @@ Here are some examples of our class-unconditional generation:
   <img src="figures/uncond-gen.png" width="480">
 </p>
 
+### MAGE-C
+PyTorch training script coming soon. Here we provide the pre-trained MAGE-C 
+checkpoints converted from JAX/TPU to PT/GPU: 
+<a href="https://drive.google.com/file/d/1069p6ZURt-xLFYrHfUiySQt1VCmWsun3/view?usp=sharing">ViT-B</a>,
+<a href="https://drive.google.com/file/d/1GOz8l6N-3LcUrM6a--TnBztN7NJpZ-Hp/view?usp=sharing">ViT-L</a>.
+
 ### Contact
 
 If you have any questions, feel free to contact me through email (tianhong@mit.edu). Enjoy!
