@@ -180,10 +180,11 @@ Here are some examples of our class-unconditional generation:
 </p>
 
 ### MAGE-C
-PyTorch training script coming soon. Here we provide the pre-trained MAGE-C 
+Here we provide the pre-trained MAGE-C 
 checkpoints converted from JAX/TPU to PT/GPU: 
 <a href="https://drive.google.com/file/d/1069p6ZURt-xLFYrHfUiySQt1VCmWsun3/view?usp=sharing">ViT-B</a>,
 <a href="https://drive.google.com/file/d/1GOz8l6N-3LcUrM6a--TnBztN7NJpZ-Hp/view?usp=sharing">ViT-L</a>.
+PyTorch training script coming soon. 
 
 ### Contact
 
