@@ -5,7 +5,7 @@
 </p>
 
 This is a PyTorch/GPU re-implementation of the paper 
-<a href="https://arxiv.org/abs/2211.09117">MAGE: MAsked Generative Encoder to Unify Representation Learning and Image Synthesis</a>:
+<a href="https://arxiv.org/abs/2211.09117">MAGE: MAsked Generative Encoder to Unify Representation Learning and Image Synthesis</a> (to appear in CVPR 2023):
 
 ```
 @article{li2022mage,
